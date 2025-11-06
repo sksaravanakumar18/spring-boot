@@ -8,7 +8,6 @@ com\springboot\master\dto\UserResponseDto.class
 com\springboot\master\repository\PostRepository.class
 com\springboot\master\config\AppConfig.class
 com\springboot\master\dto\CreateUserDto.class
-com\springboot\master\config\SecurityConfig.class
 com\springboot\master\repository\UserRepository.class
 com\springboot\master\exception\GlobalExceptionHandler$ErrorResponse.class
 com\springboot\master\entity\UserRole.class

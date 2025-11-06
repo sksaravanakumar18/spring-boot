@@ -134,9 +134,7 @@ class UserControllerTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(createUserDto)))                .andExpect(status().isOk())
                 .andExpect(jsonPath("$.username").value("testuser"));
-    }
-
-    /**
+    }    /**
      * Test deleting user - Success case
      */
     @Test
@@ -145,7 +143,9 @@ class UserControllerTest {
         mockMvc.perform(delete("/users/1")
                         .with(csrf()))
                 .andExpect(status().isNoContent());
-    }    /**
+    }
+
+    /**
      * Test health check endpoint
      */
     @Test

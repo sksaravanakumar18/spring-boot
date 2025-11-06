@@ -2,6 +2,7 @@ package com.springboot.master.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -32,15 +33,14 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
             // Disable CSRF for REST APIs (enable for web apps with forms)
-            .csrf(csrf -> csrf.disable())
-            
+            .csrf(csrf -> csrf.disable())            
             // Configure CORS
-            .cors(cors -> cors.and())
+            .cors(Customizer.withDefaults())
             
             // Configure authorization
             .authorizeHttpRequests(auth -> auth
-                // Public endpoints
-                .requestMatchers("/api/v1/users/health", "/h2-console/**", "/swagger-ui/**", "/api-docs/**").permitAll()
+                // Public endpoints (both with and without API prefix for testing)
+                .requestMatchers("/api/v1/users/health", "/users/health", "/h2-console/**", "/swagger-ui/**", "/api-docs/**").permitAll()
                 
                 // Admin endpoints
                 .requestMatchers("/api/v1/actuator/**").hasRole("ADMIN")
@@ -51,17 +51,17 @@ public class SecurityConfig {
                 // All other requests need authentication
                 .anyRequest().authenticated()
             )
-            
-            // Configure session management for REST API
+              // Configure session management for REST API
             .sessionManagement(session -> session
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
             )
             
             // Basic authentication for simplicity (use JWT in production)
-            .httpBasic(basic -> basic.and())
-            
-            // For H2 console (development only)
-            .headers(headers -> headers.frameOptions().disable());
+            .httpBasic(Customizer.withDefaults())
+              // For H2 console (development only) - disable frame options
+            .headers(headers -> headers
+                .frameOptions(frameOptions -> frameOptions.disable())
+            );
 
         return http.build();
     }
