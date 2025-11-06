@@ -145,14 +145,14 @@ class UserControllerTest {
         mockMvc.perform(delete("/users/1")
                         .with(csrf()))
                 .andExpect(status().isNoContent());
-    }
-
-    /**
+    }    /**
      * Test health check endpoint
      */
     @Test
+    @WithMockUser // Add authentication context for the test
     void healthCheck_Success() throws Exception {
-        mockMvc.perform(get("/users/health"))                .andExpect(status().isOk())
+        mockMvc.perform(get("/users/health"))
+                .andExpect(status().isOk())
                 .andExpect(content().string("User service is running!"));
     }
 }
