@@ -16,8 +16,7 @@ jobs:
   test:
     runs-on: ubuntu-latest
     name: Run Tests
-    
-    steps:
+      steps:
     - uses: actions/checkout@v4
     
     - name: Set up JDK 17
@@ -35,7 +34,8 @@ jobs:
         
     - name: Run Tests
       run: mvn clean test
-        - name: Generate Test Report
+      
+    - name: Generate Test Report
       uses: dorny/test-reporter@v1
       if: always()
       with:
