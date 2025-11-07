@@ -16,7 +16,8 @@ jobs:
   test:
     runs-on: ubuntu-latest
     name: Run Tests
-      steps:
+    
+    steps:
     - uses: actions/checkout@v4
     
     - name: Set up JDK 17
