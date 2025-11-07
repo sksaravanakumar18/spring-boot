@@ -23,11 +23,10 @@ jobs:
     - name: Set up JDK 17
       uses: actions/setup-java@v4
       with:
-        java-version: '17'
-        distribution: 'temurin'
+        java-version: '17'        distribution: 'temurin'
         
     - name: Cache Maven dependencies
-      uses: actions/cache@v3
+      uses: actions/cache@v4
       with:
         path: ~/.m2
         key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
@@ -56,11 +55,10 @@ jobs:
     - name: Set up JDK 17
       uses: actions/setup-java@v4
       with:
-        java-version: '17'
-        distribution: 'temurin'
+        java-version: '17'        distribution: 'temurin'
         
     - name: Cache Maven dependencies
-      uses: actions/cache@v3
+      uses: actions/cache@v4
       with:
         path: ~/.m2
         key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
@@ -71,9 +69,8 @@ jobs:
       
     - name: Build JAR
       run: mvn clean package -DskipTests
-      
-    - name: Upload JAR artifact
-      uses: actions/upload-artifact@v3
+        - name: Upload JAR artifact
+      uses: actions/upload-artifact@v4
       with:
         name: spring-boot-jar
         path: target/*.jar
@@ -89,11 +86,10 @@ jobs:
     - name: Set up JDK 17
       uses: actions/setup-java@v4
       with:
-        java-version: '17'
-        distribution: 'temurin'
+        java-version: '17'        distribution: 'temurin'
         
     - name: Cache Maven dependencies
-      uses: actions/cache@v3
+      uses: actions/cache@v4
       with:
         path: ~/.m2
         key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
@@ -130,9 +126,8 @@ jobs:
         echo "- [Access Guide](ACCESS_GUIDE.md)" >> docs/README.md
         echo "- [Deployment Guide](DEPLOYMENT_GUIDE.md)" >> docs/README.md
         echo "- [Architecture](ARCHITECTURE_EXPLAINED.md)" >> docs/README.md
-    
-    - name: Deploy to GitHub Pages
-      uses: peaceiris/actions-gh-pages@v3
+      - name: Deploy to GitHub Pages
+      uses: peaceiris/actions-gh-pages@v4
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         publish_dir: ./docs
